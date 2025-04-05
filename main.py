@@ -31,8 +31,8 @@ for index in data:
 
 
 # Gate.io
-Gateio_request = requests.get('https://api.gateio.ws/api/v4/spot/tickers')
-data = Gateio_request.json()
+gateio_request = requests.get('https://api.gateio.ws/api/v4/spot/tickers')
+data = gateio_request.json()
 
 for index in data:
     trading_pair = index['currency_pair']
@@ -45,9 +45,9 @@ for index in data:
 
 
 # CoinEx
-CoinEx_request = requests.get('https://api.coinex.com/v1/market/ticker/all')
-CoinEx_request = CoinEx_request.json()
-data = CoinEx_request['data']['ticker']
+coinex_request = requests.get('https://api.coinex.com/v1/market/ticker/all')
+coinex_request = coinex_request.json()
+data = coinex_request['data']['ticker']
 
 for index in data:
     trading_pair = index
@@ -60,9 +60,9 @@ for index in data:
 
 
 # Kraken
-Kraken_request = requests.get('https://api.kraken.com/0/public/Ticker')
-Kraken_request = Kraken_request.json()
-data = Kraken_request['result']
+kraken_request = requests.get('https://api.kraken.com/0/public/Ticker')
+kraken_request = kraken_request.json()
+data = kraken_request['result']
 
 for index in data:
     trading_pair = index
@@ -75,8 +75,8 @@ for index in data:
 
 
 # TooBit
-TooBit_request = requests.get('https://api.toobit.com/quote/v1/ticker/bookTicker')
-data = TooBit_request.json()
+toobit_request = requests.get('https://api.toobit.com/quote/v1/ticker/bookTicker')
+data = toobit_request.json()
 
 for index in data:
     trading_pair = index['s']
@@ -89,9 +89,9 @@ for index in data:
 
 
 # BitMart
-BitMart_request = requests.get('https://api-cloud.bitmart.com/spot/quotation/v3/tickers')
-BitMart_request = BitMart_request.json()
-data = BitMart_request['data']
+bitmart_request = requests.get('https://api-cloud.bitmart.com/spot/quotation/v3/tickers')
+bitmart_request = bitmart_request.json()
+data = bitmart_request['data']
 
 for index in data:
     trading_pair = index[0]
@@ -104,9 +104,9 @@ for index in data:
 
 
 # BitGet
-BitGet_request = requests.get('https://api.bitget.com/api/v2/spot/market/tickers')
-BitGet_request = BitGet_request.json()
-data = BitGet_request['data']
+bitget_request = requests.get('https://api.bitget.com/api/v2/spot/market/tickers')
+bitget_request = bitget_request.json()
+data = bitget_request['data']
 
 for index in data:
     trading_pair = index['symbol']
@@ -119,9 +119,9 @@ for index in data:
 
 
 # WhiteBit
-WhiteBit_request = requests.get('https://whitebit.com/api/v1/public/tickers')
-WhiteBit_request = WhiteBit_request.json()
-data = WhiteBit_request['result']
+whitebit_request = requests.get('https://whitebit.com/api/v1/public/tickers')
+whitebit_request = whitebit_request.json()
+data = whitebit_request['result']
 
 for index in data:
     trading_pair = index
@@ -159,22 +159,22 @@ for iteration1 in prices:
                                 # Calculating profit
                                 if buy_price != sell_price and buy_price != 0 and sell_price != 0:
                                     profit = ((wager / buy_price) * sell_price) - wager
-                                    if profit > 0.1 * wager and profit < 0.5 * wager:
+                                    if profit > 0.05 * wager and profit < 0.2 * wager:
 
                                         # Checking if withdrawal and deposit is enabled
                                         if buy_exchange == 'Kucoin':
-                                            Kucoin_check = requests.get(f'https://api.kucoin.com/api/v3/currencies/{coin}')
-                                            Kucoin_check = Kucoin_check.json()
-                                            data = Kucoin_check['data']['chains'][0]
+                                            kucoin_check = requests.get(f'https://api.kucoin.com/api/v3/currencies/{coin}')
+                                            kucoin_check = kucoin_check.json()
+                                            data = kucoin_check['data']['chains'][0]
 
                                             withdraw_check = data['isWithdrawEnabled']
                                             if withdraw_check is True:
                                                 passCount += 1
 
                                         if sell_exchange == 'Kucoin':
-                                            Kucoin_check = requests.get(f'https://api.kucoin.com/api/v3/currencies/{coin}')
-                                            Kucoin_check = Kucoin_check.json()
-                                            data = Kucoin_check['data']['chains'][0]
+                                            kucoin_check = requests.get(f'https://api.kucoin.com/api/v3/currencies/{coin}')
+                                            kucoin_check = kucoin_check.json()
+                                            data = kucoin_check['data']['chains'][0]
 
                                             deposit_check = data['isDepositEnabled']
                                             if deposit_check is True:
@@ -182,9 +182,9 @@ for iteration1 in prices:
 
 
                                         if buy_exchange == 'Kraken':
-                                            Kraken_check = requests.get(f'https://api.kraken.com/0/public/Assets?asset={coin}')
-                                            Kraken_check = Kraken_check.json()
-                                            data = Kraken_check['result'][coin]
+                                            kraken_check = requests.get(f'https://api.kraken.com/0/public/Assets?asset={coin}')
+                                            kraken_check = kraken_check.json()
+                                            data = kraken_check['result'][coin]
 
                                             check = data['status']
 
@@ -194,9 +194,9 @@ for iteration1 in prices:
                                                 passCount += 1
 
                                         if sell_exchange == 'Kraken':
-                                            Kraken_check = requests.get(f'https://api.kraken.com/0/public/Assets?asset={coin}')
-                                            Kraken_check = Kraken_check.json()
-                                            data = Kraken_check['result'][coin]
+                                            kraken_check = requests.get(f'https://api.kraken.com/0/public/Assets?asset={coin}')
+                                            kraken_check = kraken_check.json()
+                                            data = kraken_check['result'][coin]
 
                                             check = data['status']
 
@@ -207,9 +207,9 @@ for iteration1 in prices:
 
 
                                         if buy_exchange == 'BitMart':
-                                            BitMart_check = requests.get(f'https://api-cloud.bitmart.com/spot/v1/currencies')
-                                            BitMart_check = BitMart_check.json()
-                                            data = BitMart_check['data']['currencies']
+                                            bitmart_check = requests.get(f'https://api-cloud.bitmart.com/spot/v1/currencies')
+                                            bitmart_check = bitmart_check.json()
+                                            data = bitmart_check['data']['currencies']
 
                                             for search in data:
                                                 searchCoin = search['id']
@@ -220,9 +220,9 @@ for iteration1 in prices:
                                                 passCount += 1
 
                                         if sell_exchange == 'BitMart':
-                                            BitMart_check = requests.get(f'https://api-cloud.bitmart.com/spot/v1/currencies')
-                                            BitMart_check = BitMart_check.json()
-                                            data = BitMart_check['data']['currencies']
+                                            bitmart_check = requests.get(f'https://api-cloud.bitmart.com/spot/v1/currencies')
+                                            bitmart_check = bitmart_check.json()
+                                            data = bitmart_check['data']['currencies']
 
                                             for search in data:
                                                 searchCoin = search['id']
@@ -234,16 +234,16 @@ for iteration1 in prices:
 
 
                                         if buy_exchange == 'Gate.io':
-                                            Gateio_check = requests.get(f'https://api.gateio.ws/api/v4/spot/currencies/{coin}')
-                                            data = Gateio_check.json()
+                                            gateio_check = requests.get(f'https://api.gateio.ws/api/v4/spot/currencies/{coin}')
+                                            data = gateio_check.json()
 
                                             withdraw_check = data['withdraw_disabled']
                                             if withdraw_check is False:
                                                 passCount += 1
 
                                         if sell_exchange == 'Gate.io':
-                                            Gateio_check = requests.get(f'https://api.gateio.ws/api/v4/spot/currencies/{coin}')
-                                            data = Gateio_check.json()
+                                            gateio_check = requests.get(f'https://api.gateio.ws/api/v4/spot/currencies/{coin}')
+                                            data = gateio_check.json()
 
                                             deposit_check = data['deposit_disabled']
                                             if deposit_check is False:
@@ -251,9 +251,9 @@ for iteration1 in prices:
 
 
                                         if buy_exchange == 'CoinEx':
-                                            CoinEx_check = requests.get(f'https://api.coinex.com/v1/common/asset/config?coin_type={coin}')
-                                            CoinEx_check = CoinEx_check.json()
-                                            data = CoinEx_check['data']
+                                            coinex_check = requests.get(f'https://api.coinex.com/v1/common/asset/config?coin_type={coin}')
+                                            coinex_check = coinex_check.json()
+                                            data = coinex_check['data']
 
                                             for iteration in data:
                                                 withdraw_check = data[iteration]['can_withdraw']
@@ -262,9 +262,9 @@ for iteration1 in prices:
                                                 break
 
                                         if sell_exchange == 'CoinEx':
-                                            CoinEx_check = requests.get(f'https://api.coinex.com/v1/common/asset/config?coin_type={coin}')
-                                            CoinEx_check = CoinEx_check.json()
-                                            data = CoinEx_check['data']
+                                            coinex_check = requests.get(f'https://api.coinex.com/v1/common/asset/config?coin_type={coin}')
+                                            coinex_check = coinex_check.json()
+                                            data = coinex_check['data']
 
                                             for iteration in data:
                                                 deposit_check = data[iteration]['can_deposit']
@@ -274,9 +274,9 @@ for iteration1 in prices:
 
 
                                         if buy_exchange == 'TooBit':
-                                            TooBit_check = requests.get('https://api.toobit.com/api/v1/exchangeInfo')
-                                            TooBit_check = TooBit_check.json()
-                                            data = TooBit_check['coins']
+                                            toobit_check = requests.get('https://api.toobit.com/api/v1/exchangeInfo')
+                                            toobit_check = toobit_check.json()
+                                            data = toobit_check['coins']
 
                                             for search in data:
                                                 searchCoin = search['coinId']
@@ -287,9 +287,9 @@ for iteration1 in prices:
                                                         passCount += 1
 
                                         if sell_exchange == 'TooBit':
-                                            TooBit_check = requests.get('https://api.toobit.com/api/v1/exchangeInfo')
-                                            TooBit_check = TooBit_check.json()
-                                            data = TooBit_check['coins']
+                                            toobit_check = requests.get('https://api.toobit.com/api/v1/exchangeInfo')
+                                            toobit_check = toobit_check.json()
+                                            data = toobit_check['coins']
 
                                             for search in data:
                                                 searchCoin = search['coinId']
@@ -301,10 +301,9 @@ for iteration1 in prices:
 
 
                                         if buy_exchange == 'BitGet':
-                                            BitGet_check = requests.get(
-                                                'https://api.bitget.com/api/v2/spot/public/coins')
-                                            BitGet_check = BitGet_check.json()
-                                            data = BitGet_check['data']
+                                            bitget_check = requests.get('https://api.bitget.com/api/v2/spot/public/coins')
+                                            bitget_check = bitget_check.json()
+                                            data = bitget_check['data']
 
                                             for search in data:
                                                 searchCoin = search['coin']
@@ -315,10 +314,9 @@ for iteration1 in prices:
                                                         passCount += 1
 
                                         if sell_exchange == 'BitGet':
-                                            BitGet_check = requests.get(
-                                                'https://api.bitget.com/api/v2/spot/public/coins')
-                                            BitGet_check = BitGet_check.json()
-                                            data = BitGet_check['data']
+                                            bitget_check = requests.get('https://api.bitget.com/api/v2/spot/public/coins')
+                                            bitget_check = bitget_check.json()
+                                            data = bitget_check['data']
 
                                             for search in data:
                                                 searchCoin = search['coin']
@@ -330,8 +328,8 @@ for iteration1 in prices:
 
 
                                         if buy_exchange == 'WhiteBit':
-                                            WhiteBit_check = requests.get('https://whitebit.com/api/v4/public/assets')
-                                            data = WhiteBit_check.json()
+                                            whitebit_check = requests.get('https://whitebit.com/api/v4/public/assets')
+                                            data = whitebit_check.json()
 
                                             for search in data:
                                                 searchCoin = search
@@ -342,8 +340,8 @@ for iteration1 in prices:
                                                         passCount += 1
 
                                         if sell_exchange == 'WhiteBit':
-                                            WhiteBit_check = requests.get('https://whitebit.com/api/v4/public/assets')
-                                            data = WhiteBit_check.json()
+                                            whitebit_check = requests.get('https://whitebit.com/api/v4/public/assets')
+                                            data = whitebit_check.json()
 
                                             for search in data:
                                                 searchCoin = search
